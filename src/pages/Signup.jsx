@@ -25,7 +25,8 @@ const SignUp = () => {
         setLoading(false);
       }
     } else {
-      alert("passwords are different");
+      alert("passwords do not match");
+      setLoading(false);
     }
   };
   return (

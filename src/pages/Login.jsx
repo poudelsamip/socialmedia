@@ -13,9 +13,14 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await login(email, password);
+    try {
+      await login(email, password);
+      setLoading(false);
+      navigate("/");
+    } catch {
+      alert("login details invalid");
+    }
     setLoading(false);
-    navigate("/");
   };
 
   return (
@@ -75,7 +80,7 @@ const Login = () => {
             )}
             <hr />
             <button
-              className="btn btn-danger w-100 py-2"
+              className="btn btn-danger w-100 py-2 cursor-disabled"
               type="button"
               disabled
             >
