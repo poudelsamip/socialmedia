@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { db } from "../Config/firebase";
+import { auth, db } from "../Config/firebase";
 import {
   arrayRemove,
   arrayUnion,
@@ -12,7 +12,7 @@ import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { useLocation } from "react-router-dom";
 import { TiDelete } from "react-icons/ti";
 
-const Card = ({ title, body, likes, email, id, likedBy }) => {
+const Card = ({ title, body, likes, email, id, likedBy, userLoading }) => {
   const { user } = useAuthentication();
   const [likedByCurrentUser, setLikedByCurrentUser] = useState(false);
   const location = useLocation();
@@ -21,7 +21,6 @@ const Card = ({ title, body, likes, email, id, likedBy }) => {
 
   const handlePostDelete = async () => {
     await deleteDoc(currentPost);
-    console.log("post deleted");
   };
 
   const likePost = async () => {
@@ -70,6 +69,16 @@ const Card = ({ title, body, likes, email, id, likedBy }) => {
               <TiDelete size={30} />
             </button>
           )}
+          {user &&
+            user.email === "admin@facegram.com" &&
+            location.pathname === "/" && (
+              <button
+                className="btn outline-none p-0"
+                onClick={handlePostDelete}
+              >
+                <TiDelete size={30} />
+              </button>
+            )}
         </div>
         <hr className="my-1" />
         <div className="mainPost my-2">
