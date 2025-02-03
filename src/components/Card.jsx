@@ -12,7 +12,7 @@ import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { useLocation } from "react-router-dom";
 import { TiDelete } from "react-icons/ti";
 
-const Card = ({ title, body, likes, email, id, likedBy, userLoading }) => {
+const Card = ({ title, body, likes, email, id, likedBy, time }) => {
   const { user } = useAuthentication();
   const [likedByCurrentUser, setLikedByCurrentUser] = useState(false);
   const location = useLocation();
@@ -64,6 +64,9 @@ const Card = ({ title, body, likes, email, id, likedBy, userLoading }) => {
       <div className="border border-secondary shadow px-3 py-1 bg-white rounded">
         <div className="d-flex justify-content-between align-items-center">
           <span className="card-subtitle text-muted">{email}</span>
+          <span className="card-subtitle text-muted">
+            {time.toDate().toLocaleString()}
+          </span>
           {location.pathname === "/profile" && (
             <button className="btn outline-none p-0" onClick={handlePostDelete}>
               <TiDelete size={30} />
