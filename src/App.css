@@ -10,7 +10,7 @@ header {
 }
 
 .contentsColumn {
-  max-width: 450px;
+  width: 450px;
 }
 
 @media screen and (max-width: 450px) {

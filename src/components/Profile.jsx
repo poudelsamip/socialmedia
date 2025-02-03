@@ -28,7 +28,7 @@ const Profile = () => {
   return (
     <div className="d-flex justify-content-center">
       <div className="contentsColumn">
-        <div className="detailsContainer border border-secondary d-flex justify-content-between align-items-center px-3 mt-2 shadow p-3 bg-white rounded">
+        <div className=" border border-secondary d-flex justify-content-between align-items-center px-3 mt-2 shadow p-3 bg-white rounded">
           {user && <span>email : {user.email}</span>}
           <button
             type="button"

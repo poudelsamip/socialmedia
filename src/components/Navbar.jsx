@@ -17,7 +17,7 @@ const Navbar = () => {
     navigate("/profile");
   };
   return (
-    <header className="d-flex flex-wrap align-items-center justify-content-between justify-content-md-between px-3 py-2 border-bottom">
+    <header className="d-flex flex-wrap align-items-center justify-content-between justify-content-md-between px-3 py-2 border-bottom sticky-top">
       <div className="col-md-3 mb-2 mb-md-0">
         <Link to="/" className="h3 text-white mb-1 text-decoration-none">
           FaceGram
