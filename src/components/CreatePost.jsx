@@ -12,12 +12,15 @@ const CreatePost = () => {
   const postCollectionRef = collection(db, "posts");
   const { user } = useAuthentication();
 
+  const [loading, setLoading] = useState(false);
+
   const handleBackButton = () => {
     navigate("/profile");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await addDoc(postCollectionRef, {
         title,
@@ -27,9 +30,11 @@ const CreatePost = () => {
         time: serverTimestamp(),
         author: { email: auth.currentUser.email, id: auth.currentUser.uid },
       });
+      setLoading(false);
       navigate("/");
     } catch (err) {
       alert(err);
+      setLoading(false);
     }
   };
 
@@ -76,13 +81,23 @@ const CreatePost = () => {
           ></textarea>
         </div>
         <div>
-          <button
-            className="btn btn-primary postButton w-100"
-            type="submit"
-            onClick={handleSubmit}
-          >
-            Post
-          </button>
+          {!loading ? (
+            <button
+              className="btn btn-primary w-100"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              Post
+            </button>
+          ) : (
+            <button class="btn btn-primary w-100" type="button" disabled>
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            </button>
+          )}
         </div>
       </div>
     </div>

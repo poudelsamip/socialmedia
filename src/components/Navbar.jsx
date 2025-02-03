@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between px-3 py-2 border-bottom">
       <div className="col-md-3 mb-2 mb-md-0">
-        <h3 className="h3 text-white">Z</h3>
+        <h3 className="h3 text-white mb-1">FaceGram</h3>
       </div>
 
       <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 ">

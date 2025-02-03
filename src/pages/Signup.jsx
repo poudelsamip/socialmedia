@@ -30,7 +30,7 @@ const SignUp = () => {
           <form>
             <p className="text-center mb-0 ">Create an Account</p>
             <h1 className="h1 mb-3 fw-normal text-center newFont">
-              Social Media App
+              FaceGram App
             </h1>
 
             <div className="form-floating">

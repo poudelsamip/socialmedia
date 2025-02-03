@@ -12,6 +12,8 @@ export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(true);
 
   const login = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password);
@@ -30,6 +32,7 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
+        setUserLoading(false);
       } else {
         setUser(null);
       }
@@ -42,16 +45,27 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const getPost = async () => {
-      const qeuryData = query(postCollectionRef, orderBy("time", "desc"));
-      const data = await getDocs(qeuryData);
-      const allPosts = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      setPostList(allPosts);
+      try {
+        const qeuryData = query(postCollectionRef, orderBy("time", "desc"));
+        const data = await getDocs(qeuryData);
+        const allPosts = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setPostList(allPosts);
+      } catch (err) {
+        alert(err);
+      } finally {
+        setLoading(false);
+      }
     };
     getPost();
   }, [postList]);
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout, postList }}>
+    <AuthContext.Provider
+      value={{ user, login, signup, logout, postList, loading, userLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );

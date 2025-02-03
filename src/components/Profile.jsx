@@ -7,23 +7,23 @@ import { IoIosCreate } from "react-icons/io";
 import { useEffect } from "react";
 
 const Profile = () => {
-  const { user, logout, postList } = useAuthentication();
+  const { user, logout, postList, userLoading } = useAuthentication();
   const navigate = useNavigate();
-
-  const filteredPostList = postList.filter(
-    (post) => post.author.email === user.email
-  );
 
   const handleLogout = async () => {
     await logout();
     navigate("/");
   };
+  const filteredPostList = user
+    ? postList.filter((post) => post.author.email === user.email)
+    : [];
 
   useEffect(() => {
+    if (userLoading) return;
     if (!user) {
       navigate("/");
     }
-  }, [user]);
+  }, [user, userLoading]);
 
   return (
     <div className="d-flex justify-content-center">
