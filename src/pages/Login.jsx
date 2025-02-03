@@ -5,13 +5,16 @@ import { useAuthentication } from "../store/authProvider";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { login } = useAuthentication();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     await login(email, password);
+    setLoading(false);
     navigate("/");
   };
 
@@ -53,14 +56,23 @@ const Login = () => {
               </p>
             </div>
 
-            <button
-              className="btn btn-primary w-100 py-2"
-              type="submit"
-              onClick={handleLogin}
-            >
-              Sign In
-            </button>
-
+            {!loading ? (
+              <button
+                className="btn btn-primary w-100 py-2"
+                type="submit"
+                onClick={handleLogin}
+              >
+                Sign In
+              </button>
+            ) : (
+              <button className="btn btn-primary w-100" type="button" disabled>
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              </button>
+            )}
             <hr />
             <button
               className="btn btn-danger w-100 py-2"

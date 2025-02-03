@@ -6,18 +6,23 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { signup } = useAuthentication();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (password === confirmPass) {
       try {
         await signup(email, password);
+        setLoading(false);
         navigate("/");
       } catch (error) {
         alert(error);
+      } finally {
+        setLoading(false);
       }
     } else {
       alert("passwords are different");
@@ -71,14 +76,23 @@ const SignUp = () => {
               </p>
             </div>
 
-            <button
-              className="btn btn-primary w-100 py-2"
-              type="submit"
-              onClick={handleSignup}
-            >
-              Sign Up
-            </button>
-
+            {!loading ? (
+              <button
+                className="btn btn-primary w-100 py-2"
+                type="submit"
+                onClick={handleSignup}
+              >
+                Sign Up
+              </button>
+            ) : (
+              <button className="btn btn-primary w-100" type="button" disabled>
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              </button>
+            )}
             <hr />
             <button
               className="btn btn-danger w-100 py-2"
