@@ -10,7 +10,13 @@ header {
 }
 
 .contentsColumn {
-  width: 450px;
+  max-width: 450px;
+}
+
+@media screen and (max-width: 450px) {
+  .contentsColumn {
+    max-width: 95%;
+  }
 }
 
 /* .cardContainer,

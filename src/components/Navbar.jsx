@@ -17,21 +17,23 @@ const Navbar = () => {
     navigate("/profile");
   };
   return (
-    <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between px-3 py-2 border-bottom">
+    <header className="d-flex flex-wrap align-items-center justify-content-between justify-content-md-between px-3 py-2 border-bottom">
       <div className="col-md-3 mb-2 mb-md-0">
-        <h3 className="h3 text-white mb-1">FaceGram</h3>
+        <Link to="/" className="h3 text-white mb-1 text-decoration-none">
+          FaceGram
+        </Link>
       </div>
 
-      <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 ">
+      {/* <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 ">
         <Link to="/" className="nav-link px-2 mx-3 text-white">
           Home
         </Link>
-        {/* {user && (
+        {user && (
           <Link to="/createpost" className="nav-link mx-3 px-2 text-white">
             <IoIosCreate size={20} /> Create Post
           </Link>
-        )} */}
-      </ul>
+        )}
+      </ul> */}
 
       {!user ? (
         <div className="col-md-3 text-end">

@@ -16,7 +16,7 @@ const Contents = () => {
             <span className="sr-only"></span>
           </div>
         ) : (
-          <div className="contentsColumn mt-3">
+          <div className="contentsColumn ">
             {postList.map((post) => (
               <Card
                 title={post.title}
