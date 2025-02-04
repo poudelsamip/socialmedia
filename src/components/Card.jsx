@@ -65,7 +65,7 @@ const Card = ({ title, body, likes, email, id, likedBy, time }) => {
         <div className="d-flex justify-content-between align-items-center">
           <span className="card-subtitle text-muted">{email}</span>
           <span className="card-subtitle text-muted">
-            {time.toDate().toLocaleDateString()}
+            {time?.toDate().toLocaleDateString()}
           </span>
           {location.pathname === "/profile" && (
             <button className="btn outline-none p-0" onClick={handlePostDelete}>
