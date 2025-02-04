@@ -1,8 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthentication } from "../store/authProvider";
 import { MdAccountCircle } from "react-icons/md";
-import { IoIosCreate } from "react-icons/io";
-
 const Navbar = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuthentication();
@@ -22,6 +20,10 @@ const Navbar = () => {
         <Link to="/" className="h3 text-white mb-1 text-decoration-none">
           FaceGram
         </Link>
+        <span className="card-subtitle text-secondary">
+          {"  "}
+          v1.0.4 beta testing
+        </span>
       </div>
 
       {/* <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 ">
