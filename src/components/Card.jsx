@@ -62,19 +62,13 @@ const Card = ({ title, body, likes, email, id, likedBy, time }) => {
   return (
     <div className=" cardContainer mt-3">
       <div className="border border-secondary shadow px-3 py-1 bg-white rounded">
-        <div className="d-flex justify-content-between align-items-center">
-          <span className="card-subtitle text-muted">{email}</span>
-          <span className="card-subtitle text-muted">
-            {time?.toDate().toLocaleDateString()}
-          </span>
-          {location.pathname === "/profile" && (
-            <button className="btn outline-none p-0" onClick={handlePostDelete}>
-              <TiDelete size={30} />
-            </button>
-          )}
-          {user &&
-            user.email === "admin@facegram.com" &&
-            location.pathname === "/" && (
+        <div className="d-flex justify-content-between align-items-center emailAndDate">
+          <span className="card-subtitle text-muted email">{email}</span>
+          <div className="forMobile">
+            <span className="card-subtitle text-muted">
+              {time?.toDate().toLocaleDateString()}
+            </span>
+            {location.pathname === "/profile" && (
               <button
                 className="btn outline-none p-0"
                 onClick={handlePostDelete}
@@ -82,6 +76,17 @@ const Card = ({ title, body, likes, email, id, likedBy, time }) => {
                 <TiDelete size={30} />
               </button>
             )}
+            {user &&
+              user.email === "admin@facegram.com" &&
+              location.pathname === "/" && (
+                <button
+                  className="btn outline-none p-0"
+                  onClick={handlePostDelete}
+                >
+                  <TiDelete size={30} />
+                </button>
+              )}
+          </div>
         </div>
         <hr className="my-1" />
         <div className="mainPost my-2">

@@ -17,6 +17,21 @@ header {
   .contentsColumn {
     max-width: 95%;
   }
+  .emailAndDate {
+    flex-direction: column;
+  }
+  .forMobile {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .email {
+    width: 100%;
+    float: left;
+  }
+  .logOutBtn {
+    flex-direction: column;
+  }
 }
 
 /* .cardContainer,
