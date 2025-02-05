@@ -47,7 +47,7 @@ const Profile = () => {
         </div>
         <hr />
         <div className="userPosts">
-          <h3>Your posts</h3>
+          <h3 className="text-white">Your posts</h3>
           {filteredPostList.map((post) => (
             <Card
               title={post.title}

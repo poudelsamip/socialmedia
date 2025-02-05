@@ -58,7 +58,7 @@ const Navbar = () => {
         <div className="col-md-3 text-end">
           <button
             type="button"
-            className="btn btn-outline-secondary me-2"
+            className="btn btn-primary me-2"
             onClick={handleProfile}
           >
             <MdAccountCircle size={25} />

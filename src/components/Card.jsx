@@ -74,7 +74,6 @@ const Card = ({
             commentBody: newComment,
           }),
         });
-        console.log("comment added");
         commentBox.current.value = "";
       } catch (err) {
         alert(err);
@@ -143,7 +142,7 @@ const Card = ({
           </button>
 
           <button
-            className="btn btn-outline-secondary py-1 px-2"
+            className="btn btn-outline-primary py-1 px-2"
             onClick={() => setCommentShown(!commentShown)}
           >
             {commentShown && <IoMdCloseCircleOutline size={24} />}
