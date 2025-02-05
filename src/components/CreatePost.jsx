@@ -27,6 +27,7 @@ const CreatePost = () => {
         body,
         likes: 0,
         likedBy: [],
+        comments: [],
         time: serverTimestamp(),
         author: { email: auth.currentUser.email, id: auth.currentUser.uid },
       });

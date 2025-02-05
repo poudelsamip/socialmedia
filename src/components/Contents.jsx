@@ -26,6 +26,7 @@ const Contents = () => {
                 id={post.id}
                 likedBy={post.likedBy}
                 postList={postList}
+                allcomments={post.comments}
                 time={post.time}
                 key={post.id}
               />

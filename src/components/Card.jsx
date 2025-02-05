@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { auth, db } from "../Config/firebase";
+import { useEffect, useRef, useState } from "react";
+import { db } from "../Config/firebase";
 import {
   arrayRemove,
   arrayUnion,
@@ -11,11 +11,27 @@ import { useAuthentication } from "../store/authProvider";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { useLocation } from "react-router-dom";
 import { TiDelete } from "react-icons/ti";
+import { FaRegCommentDots } from "react-icons/fa";
+import { IoMdSend } from "react-icons/io";
+import CommentCard from "./CommentCard";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
-const Card = ({ title, body, likes, email, id, likedBy, time }) => {
+const Card = ({
+  title,
+  body,
+  likes,
+  email,
+  id,
+  likedBy,
+  time,
+  allcomments,
+}) => {
   const { user } = useAuthentication();
   const [likedByCurrentUser, setLikedByCurrentUser] = useState(false);
   const location = useLocation();
+  const [newComment, setNewComment] = useState();
+  const commentBox = useRef();
+  const [commentShown, setCommentShown] = useState(false);
 
   const currentPost = doc(db, "posts", id);
 
@@ -46,6 +62,25 @@ const Card = ({ title, body, likes, email, id, likedBy, time }) => {
       }
     } else {
       alert("please login to like the post");
+    }
+  };
+
+  const commentPost = async () => {
+    if (user) {
+      try {
+        await updateDoc(currentPost, {
+          comments: arrayUnion({
+            commenter: user.email,
+            commentBody: newComment,
+          }),
+        });
+        console.log("comment added");
+        commentBox.current.value = "";
+      } catch (err) {
+        alert(err);
+      }
+    } else {
+      alert("Please login to comment.");
     }
   };
 
@@ -94,17 +129,56 @@ const Card = ({ title, body, likes, email, id, likedBy, time }) => {
           <p className="mb-0">{body}</p>
         </div>
         <hr className="my-1" />
-        <button
-          className="btn btn-outline-primary p-1 d-flex justify-content-center align-items-center"
-          onClick={likePost}
-        >
-          {likedByCurrentUser ? (
-            <AiFillLike size={20} />
-          ) : (
-            <AiOutlineLike size={20} />
-          )}
-          <span>{likes}</span>
-        </button>
+        <div className="likeAndComment d-flex justify-content-between">
+          <button
+            className="btn btn-outline-primary p-1 d-flex justify-content-center align-items-center"
+            onClick={likePost}
+          >
+            {likedByCurrentUser ? (
+              <AiFillLike size={20} />
+            ) : (
+              <AiOutlineLike size={20} />
+            )}
+            <span>{likes}</span>
+          </button>
+
+          <button
+            className="btn btn-outline-secondary py-1 px-2"
+            onClick={() => setCommentShown(!commentShown)}
+          >
+            {commentShown && <IoMdCloseCircleOutline size={24} />}
+            {!commentShown && <FaRegCommentDots size={18} />}
+            {!commentShown && allcomments && <span>{allcomments.length}</span>}
+            {!commentShown && !allcomments && <span> 0</span>}
+          </button>
+        </div>
+        {commentShown && (
+          <div>
+            <div className="d-flex mt-2">
+              <input
+                type="text"
+                className="form-control border border-secondary shadow-none "
+                placeholder="Write comment"
+                ref={commentBox}
+                onChange={(e) => setNewComment(e.target.value)}
+              />
+              <button
+                className="btn btn-secondary d-flex align-items-center ms-3"
+                type="button"
+                onClick={commentPost}
+              >
+                <IoMdSend />
+              </button>
+            </div>
+            <hr />
+            {allcomments && allcomments.length !== 0 && (
+              <h3 className="h4">Comments</h3>
+            )}
+            {allcomments?.map((comment, index) => (
+              <CommentCard key={index} comment={comment} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -57,6 +57,7 @@ const Profile = () => {
               id={post.id}
               likedBy={post.likedBy}
               postList={postList}
+              comments={postList.comments}
               time={post.time}
               key={post.id}
             />
