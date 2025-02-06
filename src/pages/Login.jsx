@@ -25,7 +25,6 @@ const Login = () => {
 
   const handleForgotPassword = () => {
     forgotPassword(email);
-    console.log("forgot button clicked");
   };
 
   return (
@@ -58,9 +57,11 @@ const Login = () => {
               />
               <label htmlFor="floatingPassword">Password</label>
             </div>
-            <div className="forgot">
-              <span onClick={handleForgotPassword}>Forgot Password?</span>
-            </div>
+
+            <p className="my-1">
+              <Link onClick={handleForgotPassword}>Forgot Password?</Link>
+            </p>
+
             <div className="signup">
               <p>
                 Don't have an account ?{"  "}
