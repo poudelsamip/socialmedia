@@ -4,6 +4,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth, db } from "../Config/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
@@ -17,6 +18,11 @@ const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const forgotPassword = async (email) => {
+    await sendPasswordResetEmail(auth, email);
+    alert("Password reset link has been sent.\nPlease check you email.");
   };
 
   const signup = async (email, password) => {
@@ -64,7 +70,16 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, signup, logout, postList, loading, userLoading }}
+      value={{
+        user,
+        login,
+        signup,
+        logout,
+        postList,
+        loading,
+        userLoading,
+        forgotPassword,
+      }}
     >
       {children}
     </AuthContext.Provider>

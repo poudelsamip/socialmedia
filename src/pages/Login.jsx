@@ -7,7 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuthentication();
+  const { login, forgotPassword } = useAuthentication();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -21,6 +21,11 @@ const Login = () => {
       alert("login details invalid");
     }
     setLoading(false);
+  };
+
+  const handleForgotPassword = () => {
+    forgotPassword(email);
+    console.log("forgot button clicked");
   };
 
   return (
@@ -53,7 +58,9 @@ const Login = () => {
               />
               <label htmlFor="floatingPassword">Password</label>
             </div>
-
+            <div className="forgot">
+              <span onClick={handleForgotPassword}>Forgot Password?</span>
+            </div>
             <div className="signup">
               <p>
                 Don't have an account ?{"  "}
